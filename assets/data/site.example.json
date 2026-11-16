@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "updated": "2026-11-16T22:35:00+08:00",
+  "tagline": "技术演示站",
+  "motto": "为天下用心，为世人考义，暂明其究，习古度今。",
+
+  "figures": {
+    "widgetLabel": "演示小组件",
+    "widgetText": "时钟与便签，在「设置」里添加；内容只存在本机。"
+  },
+
+  "articles": {
+    "pageSize": 5,
+    "items": []
+  },
+
+  "services": [],
+
+  "links": {
+    "github": "https://github.com/bihongcue876/bhc-st-index"
+  }
+}

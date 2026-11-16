@@ -1,0 +1,52 @@
+# ------------------------------------------------------------
+# 站点数据：不进版本库
+# site.json 与 visits.json 由服务器维护，里面有真实地址、联系方式
+# 与访问量；仓库里只保留模板 site.example.json。
+# ------------------------------------------------------------
+/assets/data/site.json
+/assets/data/visits.json
+/assets/data/*.local.json
+/assets/data/*.state
+/assets/data/backup/
+/site.local.json
+
+# ------------------------------------------------------------
+# 只在本地维护的记录：含服务器路径、未决事项与内部判断，不公开
+# ------------------------------------------------------------
+/WORKLOG.md
+
+# 页面文案草稿（写完即并入 HTML，不入库）
+/text-of-*
+
+# 数据与配置的备份包
+*.tar.gz
+*.zip
+*.sqlite
+*.db
+
+# 本地预览、截图与临时产物
+/shots/
+/tmp/
+nohup.out
+*.log
+*.tmp
+*.bak
+*.orig
+*~
+
+# 环境变量与密钥（将来若接统计、反代或第三方接口）
+.env
+.env.*
+!.env.example
+
+# 编辑器与系统杂项
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 包管理器（本站无构建依赖，留作保险）
+node_modules/

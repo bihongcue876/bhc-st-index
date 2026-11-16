@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="站点图标">
+  <!-- 占位图标：一个中性方块 + 一条横线。换成你自己的图形即可，
+       或直接换成 favicon.ico / favicon.png 并改 index.html 的 link。 -->
+  <rect width="32" height="32" rx="4" fill="#1a1a1c"/>
+  <rect x="8" y="14" width="16" height="2" fill="#fbfaf8"/>
+  <rect x="8" y="19" width="9" height="2" fill="#fbfaf8" opacity=".55"/>
+</svg>

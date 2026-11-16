@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- 配色在样式表之前定下来，深色用户不会先看到白屏。
+     同步脚本、放在 CSS 之前；上 CSP 后也不需要放开内联脚本。 -->
+<script src="/assets/js/theme-boot.js"></script>
+
+<title>BHC-Tech | 技术演示站</title>
+<meta name="description" content="BHC-Tech 技术演示站：纯前端页面，内容由服务器上的配置文件提供。">
+<meta name="robots" content="index,follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="BHC-Tech | 技术演示站">
+<meta property="og:description" content="技术演示与展示环境。">
+<meta property="og:image" content="/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/theme.css">
+</head>
+
+<body>
+<a class="skip-link" href="#main">跳到主内容</a>
+
+<!-- ---------------- 报头：站名 + 检索 / 主题 / 设置 ---------------- -->
+<header class="masthead">
+  <div class="container masthead-inner">
+    <div class="masthead-id">
+      <h1 class="masthead-name"><a href="/">bhc-st.site</a></h1>
+      <p class="masthead-tag" data-tagline>技术演示站</p>
+    </div>
+
+    <div class="masthead-tools">
+      <button class="tool-btn" id="search-open" type="button"
+              aria-label="检索本站" aria-expanded="false" aria-controls="search-overlay">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="7" cy="7" r="4.4"></circle>
+          <path d="M10.4 10.4 14 14" stroke-linecap="round"></path>
+        </svg>
+        <span class="visually-hidden">检索</span>
+      </button>
+
+      <button class="tool-btn" id="theme-cycle" type="button"
+              aria-label="切换配色" data-theme-pref-name="跟随系统">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <circle cx="8" cy="8" r="5.6" fill="none" stroke="currentColor" stroke-width="1.4"></circle>
+          <path d="M8 2.4a5.6 5.6 0 0 1 0 11.2Z" fill="currentColor"></path>
+        </svg>
+        <span class="visually-hidden">切换配色</span>
+      </button>
+
+      <button class="tool-btn" id="settings-open" type="button"
+              aria-label="设置" aria-expanded="false" aria-controls="settings-overlay">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <path d="M2 4.5h12M2 11.5h12" stroke-linecap="round"></path>
+          <circle cx="5.5" cy="4.5" r="1.6" fill="none"></circle>
+          <circle cx="10.5" cy="11.5" r="1.6" fill="none"></circle>
+        </svg>
+        <span class="visually-hidden">设置</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ---------------- 题记 ---------------- -->
+  <section class="intro" aria-label="题记">
+    <div class="container">
+      <p class="motto" data-motto>为天下用心，为世人考义，暂明其究，习古度今。</p>
+    </div>
+  </section>
+
+  <!-- ---------------- 数字条：访问量 / 运行天数 / 一句定位 + 日期 ----------------
+      数字用等宽字体，不引外部字体；农历走浏览器内置的中国历。
+      ------------------------------------------------ -->
+  <section class="figures" aria-label="站点状态">
+    <div class="container figures-inner">
+
+      <ul class="figure-list">
+        <li class="figure">
+          <span class="figure-label">累计访问</span>
+          <!-- 读 /assets/data/visits.json，读不到显示短横线 -->
+          <span class="figure-value" data-visits title="暂无数据">—</span>
+        </li>
+
+        <li class="figure">
+          <span class="figure-label">建站已</span>
+          <span class="figure-value"><span data-days-since>—</span><span class="figure-unit" data-days-unit>日</span></span>
+        </li>
+
+        <li class="figure figure-widget">
+          <span class="figure-label" data-widget-label>演示小组件</span>
+          <span class="figure-text" data-widget-text>时钟与便签，在「设置」里添加；内容只存在本机。</span>
+        </li>
+      </ul>
+
+      <p class="figure-date">
+        <span class="figure-date-main" data-date>—</span>
+        <span class="figure-date-lunar" data-lunar hidden></span>
+        <span class="figure-date-week" data-week hidden></span>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ---------------- 小组件：默认不出现，在「设置」里打开 ----------------
+       组件状态仍存在 cookie 里，服务端不存任何东西。
+       ------------------------------------------------ -->
+  <section class="widgets-band" id="widgets-band" aria-label="小组件" hidden>
+    <div class="container">
+      <div class="widgets" id="widgets"></div>
+    </div>
+  </section>
+
+  <!-- ---------------- 文章 ----------------
+       条目由 /assets/data/site.json 提供，超过一页才出现分页。
+       ------------------------------------------------ -->
+  <section class="section" id="articles">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">文章</h2>
+        <a class="section-more" href="/articles.html">全部 <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="entry-frame">
+        <ol class="entry-list" data-articles>
+          <li class="entry-placeholder">正在读取内容…</li>
+        </ol>
+      </div>
+
+      <div class="pager" data-pager hidden>
+        <button class="pager-btn" type="button" data-page-prev aria-label="上一页">‹</button>
+        <span class="pager-now"><span data-page-now>1</span> / <span data-page-total>1</span></span>
+        <button class="pager-btn" type="button" data-page-next aria-label="下一页">›</button>
+      </div>
+
+      <noscript>
+        <p class="section-note">文章列表需要启用脚本才能显示。</p>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- ---------------- 服务 ----------------
+       卡片上半是快照，下半是名称与人工标注的状态。
+       状态不是实时探测：静态页没有后端，别把它当监控。
+       ------------------------------------------------ -->
+  <section class="section section-alt" id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">服务</h2>
+        <p class="section-note">已部署的服务；状态为人工标注</p>
+      </div>
+
+      <ul class="service-grid" data-services>
+        <li class="service service-placeholder">正在读取内容…</li>
+      </ul>
+
+      <a class="service-more" href="/resources.html">
+        <span>全部服务</span>
+        <span aria-hidden="true">→</span>
+      </a>
+
+      <noscript>
+        <p class="section-note">服务列表需要启用脚本才能显示。</p>
+      </noscript>
+    </div>
+  </section>
+
+</main>
+
+<!-- ---------------- 页脚 ---------------- -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+
+    <nav class="footer-nav" aria-label="页脚导航">
+      <a href="/guide.html">说明</a>
+      <a href="/about.html">关于</a>
+      <!-- 地址由 site.json 的 links.github 提供，外链校验后才渲染 -->
+      <a href="/about.html" data-github hidden>GitHub</a>
+    </nav>
+
+    <p class="footer-line">BHC技术演示站</p>
+    <p class="footer-line">
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">闽ICP备2026044016号-1</a>
+    </p>
+    <!-- 公安备案：拿到号以后取消注释并填上，例如
+         <p class="footer-line"><a href="https://beian.mps.gov.cn/" target="_blank" rel="noopener noreferrer">闽公网安备00000000000000号</a></p> -->
+
+  </div>
+</footer>
+
+<!-- ============================================================
+     检索面板
+     ============================================================ -->
+<div class="search-overlay" id="search-overlay" hidden>
+  <div class="search-panel" role="dialog" aria-modal="true" aria-labelledby="search-dialog-title">
+    <h2 class="visually-hidden" id="search-dialog-title">站内检索</h2>
+
+    <form class="search" id="search" role="search" action="/" method="get" autocomplete="off">
+      <div class="search-row">
+        <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <circle cx="7" cy="7" r="4.5"></circle>
+          <path d="M10.5 10.5 14 14" stroke-linecap="round"></path>
+        </svg>
+        <input class="search-input" id="search-input" type="search" name="q"
+               placeholder="搜索文章、服务、页面…"
+               aria-label="站内检索" aria-controls="search-results" aria-expanded="false"
+               autocomplete="off" spellcheck="false">
+        <kbd class="search-kbd" aria-hidden="true">Esc</kbd>
+      </div>
+      <div class="search-results" id="search-results" role="listbox" aria-label="搜索结果" hidden></div>
+      <div class="search-foot" aria-hidden="true">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 选择</span>
+        <span><kbd>Enter</kbd> 打开</span>
+        <span><kbd>Esc</kbd> 关闭</span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     设置面板：外观、小组件、恢复默认
+     全部存在本机（localStorage / cookie），服务端不接收
+     ============================================================ -->
+<div class="sheet-overlay" id="settings-overlay" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="sheet-head">
+      <h2 class="sheet-title" id="settings-title">设置</h2>
+      <button class="sheet-close" type="button" data-settings-close aria-label="关闭设置">×</button>
+    </div>
+
+    <div class="sheet-body">
+
+      <section class="sheet-group" aria-labelledby="settings-theme">
+        <h3 class="sheet-group-title" id="settings-theme">外观</h3>
+        <div class="seg" role="group" aria-label="配色">
+          <button class="seg-btn" type="button" data-theme-set="light" aria-pressed="false">浅色</button>
+          <button class="seg-btn" type="button" data-theme-set="dark" aria-pressed="false">深色</button>
+          <button class="seg-btn" type="button" data-theme-set="auto" aria-pressed="true">跟随系统</button>
+        </div>
+        <p class="sheet-note">选择只存在本机浏览器里。</p>
+      </section>
+
+      <section class="sheet-group" aria-labelledby="settings-widgets">
+        <h3 class="sheet-group-title" id="settings-widgets">小组件</h3>
+        <ul class="check-list" data-widget-options></ul>
+        <p class="sheet-note">小组件内容只写在本机 cookie，不会上传。</p>
+      </section>
+
+      <section class="sheet-group" aria-labelledby="settings-data">
+        <h3 class="sheet-group-title" id="settings-data">内容</h3>
+        <p class="sheet-note" data-config-info>文章与服务由服务器上的配置文件提供。</p>
+        <button class="sheet-reset" type="button" data-settings-reset>恢复默认</button>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/theme.js" defer></script>
+<script src="/assets/js/search.js" defer></script>
+<script src="/assets/js/widgets.js" defer></script>
+<script src="/assets/js/content.js" defer></script>
+<script src="/assets/js/settings.js" defer></script>
+</body>
+</html>

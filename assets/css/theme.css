@@ -1,0 +1,550 @@
+/* ============================================================
+   theme.css —— 视觉层：纸与墨
+   取向：一本朴素的小册子。米白纸、近黑墨、一根赭红细线。
+   规则：不用渐变、不用毛玻璃、不用投影堆叠、不用装饰图形；
+        形状一律小圆角或直角；强调色只出现在细线和焦点上。
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ---- 颜色：纸、墨、赭 ---- */
+  --bg:            #f6f4ef;   /* 纸 */
+  --bg-alt:        #efece4;   /* 略深的纸，用于交替区块 */
+  --surface:       #fbf9f5;   /* 卡片纸面 */
+  --fg:            #1b1a17;   /* 墨 */
+  --fg-muted:      #55524a;   /* 淡墨 */
+  --fg-faint:      #8b857a;   /* 更淡的墨，脚注用 */
+  --border:        #ded8cb;   /* 细线 */
+  --border-strong: #bdb5a4;   /* 悬停细线 */
+  --link:          #1b1a17;
+  --link-underline:#c3bbaa;
+  --accent:        #8a3c2c;   /* 赭：只用于细线、焦点、选中项 */
+  --focus:         #8a3c2c;
+  --brand-mark-bg: #1b1a17;
+  --badge-bg:      transparent;
+  --badge-fg:      #8b857a;
+  --overlay-bg:    rgb(27 26 23 / 32%);
+
+  /* ---- 字体：标题衬线，正文无衬线，数字等宽 ---- */
+  --font-sans: system-ui, -apple-system, "Segoe UI", "PingFang SC",
+               "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC",
+               "Noto Sans CJK SC", sans-serif;
+  --font-serif: Georgia, "Times New Roman", "Songti SC", "SimSun",
+                "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-display: var(--font-serif);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* ---- 字号与行高 ---- */
+  --fs-base:     16px;
+  --fs-xs:       .75rem;
+  --fs-sm:       .875rem;
+  --fs-lead:     1.0625rem;
+  --fs-h3:       .9375rem;
+  --fs-h2:       1.0625rem;
+  --fs-hero:     clamp(1.5rem, 3.4vw, 2.1rem);
+  --fs-display:  clamp(2rem, 7vw, 3.6rem);   /* bhc-st.site 的字号 */
+  --fs-page-title: clamp(1.5rem, 3.6vw, 2rem);
+  --lh:          1.8;
+
+  /* ---- 形状：小圆角，薄阴影只给浮层 ---- */
+  --radius-sm:   2px;
+  --radius:      3px;
+  --radius-lg:   4px;
+  --radius-pill:  2px;
+  --shadow:      none;
+  --shadow-menu: 0 8px 20px -10px rgb(27 26 23 / 30%);
+  --shadow-dialog: 0 18px 40px -20px rgb(27 26 23 / 40%);
+  --dur:         .12s;
+
+  /* ---- 间距 ---- */
+  --gutter:      1.25rem;
+  --layout-max:  1000px;
+  --header-h:    56px;
+  --hero-space:  4rem;
+  --hero-space-sm: 2.5rem;
+  --section-space: 3.25rem;
+  --section-space-sm: 2.25rem;
+  --page-head-space: 3rem;
+  --card-min:    230px;
+  --grid-gap:    .85rem;
+  --card-pad:    1.1rem 1.15rem;
+  --widget-min:  140px;
+  --search-panel-w: 33rem;
+
+  /* ---- 首页 ---- */
+  --fs-masthead:  clamp(1.75rem, 5vw, 2.75rem);  /* 报头站名 */
+  --entry-frame-h: 22rem;                        /* 文章容器最高高度，超出内部滚动 */
+  --service-min:  240px;                         /* 服务卡最小宽度，决定几列 */
+  --sheet-w:      26rem;                         /* 设置面板宽度 */
+
+  /* ---- 排版细节 ---- */
+  --brand-tracking:  .04em;
+  --hero-weight:     400;
+  --hero-tracking:   .01em;
+  --h2-tracking:     .01em;
+  --page-title-weight: 400;
+  --display-weight:   400;
+  --display-tracking: .01em;
+  --sub-tracking:     .44em;
+
+  /* ---- 搜索命中：淡赭底，不抢眼 ---- */
+  --mark-bg:     rgb(138 60 44 / 14%);
+  --mark-fg:     inherit;
+
+  --header-bg:   var(--bg);
+  --header-blur: none;
+}
+
+/* 深色调色板只写一遍，两处引用：
+   1) scripts 关掉时，用系统偏好兜底；
+   2) 手动切到深色时，由 data-theme="dark" 触发。
+   改深色就把下面两处的值一起改（内容完全一致）。 */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    /* 深色：冷一点的墨蓝，不偏黄 */
+    --bg:            #131820;
+    --bg-alt:        #171d26;
+    --surface:       #1a212b;
+    --fg:            #e2e6eb;
+    --fg-muted:      #9fa7b3;
+    --fg-faint:      #737d8a;
+    --border:        #262f3b;
+    --border-strong: #3d4856;
+    --link:          #e2e6eb;
+    --link-underline:#3d4856;
+    --accent:        #c9836b;
+    --focus:         #c9836b;
+    --brand-mark-bg: #e2e6eb;
+    --badge-fg:      #737d8a;
+    --overlay-bg:    rgb(6 9 14 / 62%);
+    --shadow-menu:   0 8px 20px -10px rgb(0 0 0 / 75%);
+    --shadow-dialog: 0 18px 44px -20px rgb(0 0 0 / 85%);
+    --mark-bg:       rgb(201 131 107 / 24%);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  /* 深色：冷一点的墨蓝，不偏黄 */
+  --bg:            #131820;
+  --bg-alt:        #171d26;
+  --surface:       #1a212b;
+  --fg:            #e2e6eb;
+  --fg-muted:      #9fa7b3;
+  --fg-faint:      #737d8a;
+  --border:        #262f3b;
+  --border-strong: #3d4856;
+  --link:          #e2e6eb;
+  --link-underline:#3d4856;
+  --accent:        #c9836b;
+  --focus:         #c9836b;
+  --brand-mark-bg: #e2e6eb;
+  --badge-fg:      #737d8a;
+  --overlay-bg:    rgb(6 9 14 / 62%);
+  --shadow-menu:   0 8px 20px -10px rgb(0 0 0 / 75%);
+  --shadow-dialog: 0 18px 44px -20px rgb(0 0 0 / 85%);
+  --mark-bg:       rgb(201 131 107 / 24%);
+}
+
+
+/* ============================================================
+   微调：把骨架压回"朴素"这一侧
+   ============================================================ */
+
+body {
+  background: var(--bg);
+  font-size: var(--fs-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 标题统一衬线，字重轻，字距略开 */
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
+
+::selection { background: var(--mark-bg); }
+
+/* 键盘焦点：一根赭红实线，不做外发光 */
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- 页头 ---------- */
+
+.site-header { border-bottom: 1px solid var(--border); }
+
+.brand-name { letter-spacing: var(--brand-tracking); font-size: 1.0625rem; }
+
+/* 站名前的方块：小一点、方一点 */
+.brand-mark { inline-size: .55rem; block-size: .55rem; border-radius: 0; }
+
+.nav a {
+  font-size: var(--fs-sm);
+  letter-spacing: .04em;
+  color: var(--fg-muted);
+  text-decoration: none;
+  padding-block: .2rem;
+  border-bottom: 1px solid transparent;
+}
+.nav a:hover { color: var(--fg); border-bottom-color: var(--border-strong); }
+.nav a[aria-current="page"] { color: var(--fg); border-bottom-color: var(--accent); }
+
+/* 搜索按钮：一枚方形小印 */
+.search-trigger {
+  inline-size: 1.9rem;
+  block-size: 1.9rem;
+  border-radius: var(--radius-sm);
+  color: var(--fg-muted);
+}
+.search-trigger:hover { color: var(--fg); border-color: var(--border-strong); background: var(--bg-alt); }
+
+/* ---------- 配色切换：日 / 月 / 星 ---------- */
+
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1.85rem;
+  block-size: 1.85rem;
+  padding: 0;
+  color: var(--fg-faint);
+  background: transparent;
+  border: 0;
+  border-left: 1px solid var(--border);
+  cursor: pointer;
+  transition: color var(--dur) ease, background-color var(--dur) ease;
+}
+.theme-btn:first-child { border-left: 0; }
+.theme-btn svg { inline-size: 13px; block-size: 13px; }
+.theme-btn:hover { color: var(--fg); background: var(--bg-alt); }
+.theme-btn[aria-pressed="true"] { color: var(--accent); background: var(--bg-alt); }
+
+@media (max-width: 600px) {
+  .theme-btn { inline-size: 1.7rem; block-size: 1.7rem; }
+}
+
+/* ---------- 首屏 ---------- */
+
+.hero { padding-block: var(--hero-space) var(--hero-space); }
+
+/* 标题上方压一根短赭线，代替一切装饰 */
+.hero-inner::before {
+  content: "";
+  display: block;
+  inline-size: 2rem;
+  block-size: 1px;
+  margin-bottom: 1.4rem;
+  background: var(--accent);
+}
+
+.hero-display {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: var(--display-weight);
+  line-height: 1.15;
+  letter-spacing: var(--display-tracking);
+}
+
+.hero-sub {
+  margin-top: 1.1rem;
+  font-size: var(--fs-sm);
+  color: var(--fg-faint);
+  letter-spacing: var(--sub-tracking);
+  text-indent: var(--sub-tracking);   /* 补上末字后的字距，视觉居中 */
+}
+
+/* ---------- 区块标题 ---------- */
+
+.section-head { border-color: var(--border); }
+
+.section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--h2-tracking);
+}
+
+.section-title::before {
+  content: "";
+  inline-size: .75rem;
+  block-size: 1px;
+  background: var(--accent);
+}
+
+.section-note,
+.section-more { font-size: var(--fs-xs); color: var(--fg-faint); letter-spacing: .02em; }
+.section-more:hover { color: var(--accent); }
+
+/* ---------- 卡片：纸片，不是浮起的白块 ---------- */
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  transition: border-color var(--dur) ease, background-color var(--dur) ease;
+}
+.card:hover { border-color: var(--border-strong); background: var(--bg-alt); }
+.card-title a { text-decoration: none; }
+.card-title a:hover { text-decoration: underline; text-decoration-color: var(--border-strong); }
+
+/* 角标：细线小字，不填色 */
+.badge {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .06em;
+  padding: .05rem .35rem;
+  color: var(--badge-fg);
+}
+
+/* ---------- 文章行：靠细线和字距区分，不用底色块 ---------- */
+
+.entry-date, .entry-tag { font-size: var(--fs-xs); letter-spacing: .02em; }
+.entry-tag {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0 .35rem;
+  font-family: var(--font-mono);
+}
+.entry > a:hover { background: var(--bg-alt); }
+.entry > a:hover .entry-title { text-decoration-color: var(--accent); }
+
+/* ---------- 小组件：等同卡片，去掉任何阴影 ---------- */
+
+.widget { background: var(--surface); border-radius: var(--radius); }
+.widget-name {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .12em;
+}
+.widget-big { font-family: var(--font-mono); letter-spacing: -.01em; }
+.widget-remove { border-radius: var(--radius-sm); }
+.widget-remove:hover { color: var(--accent); border-color: var(--border-strong); }
+.widget-add {
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-xs);
+  letter-spacing: .04em;
+}
+.widget-add:hover { border-color: var(--border-strong); background: var(--bg-alt); }
+.widget-menu {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-menu);
+}
+.widget-menu button { font-size: var(--fs-sm); }
+.widget-menu button:hover { background: var(--bg-alt); color: var(--accent); }
+
+/* ---------- 关于栏 ---------- */
+
+.about-band { border-top: 1px solid var(--border); }
+
+.link-grid a {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color var(--dur) ease, background-color var(--dur) ease;
+}
+.link-grid a:hover { border-color: var(--border-strong); background: var(--bg-alt); }
+.link-title { font-family: var(--font-display); font-size: var(--fs-sm); }
+.link-meta { font-family: var(--font-mono); font-size: var(--fs-xs); color: var(--fg-faint); }
+
+/* ---------- 搜索浮层 ---------- */
+
+.search-overlay { backdrop-filter: none; }
+
+.search-panel {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-dialog);
+  animation: search-fade .1s ease;
+}
+
+.search-input { font-size: var(--fs-lead); }
+.search-kbd, .search-foot kbd {
+  font-size: .625rem;
+  letter-spacing: .04em;
+  border-radius: var(--radius-sm);
+}
+.search-result { border-radius: var(--radius-sm); }
+.search-result[aria-selected="true"],
+.search-result:hover { background: var(--bg-alt); }
+.search-result-title { font-family: var(--font-display); font-weight: 400; }
+.search-foot { background: transparent; }
+
+/* ---------- 页脚：一条细线，一行小字 ---------- */
+
+.site-footer { border-top: 1px solid var(--border); background: transparent; }
+.footer-line { font-family: var(--font-display); font-size: var(--fs-sm); color: var(--fg-muted); }
+.footer-line a { text-decoration-color: var(--border-strong); }
+.footer-line a:hover { color: var(--accent); }
+.footer-note { font-size: var(--fs-xs); color: var(--fg-faint); letter-spacing: .02em; }
+
+/* 访问量数字走等宽，跳变时宽度不抖 */
+[data-visits] { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- 分页面 ---------- */
+
+.page-head { border-bottom: 1px solid var(--border); }
+.page-kicker {
+  font-family: var(--font-mono);
+  font-size: .6875rem;
+  letter-spacing: .18em;
+  color: var(--fg-faint);
+}
+.page-title { font-family: var(--font-display); font-weight: 400; letter-spacing: var(--h2-tracking); }
+
+.res-group-title { font-family: var(--font-display); font-weight: 400; font-size: 1rem; }
+.res-host { letter-spacing: .02em; }
+
+.info dt { font-size: var(--fs-sm); color: var(--fg-faint); }
+.info dd a { text-decoration-color: var(--link-underline); }
+
+/* 窄屏：首屏别把纸占满 */
+@media (max-width: 600px) {
+  :root {
+    --hero-space: 2.75rem;
+    --hero-space-sm: 1.9rem;
+    --section-space: 2.5rem;
+    --sub-tracking: .3em;
+  }
+}
+
+/* ============================================================
+   首页：报头 / 题记 / 数字条 / 文章容器 / 服务 / 设置面板
+   沿用同一套纸墨：细线分界、无阴影、强调色只落在小处。
+   ============================================================ */
+
+/* ---------- 报头 ---------- */
+
+.masthead { border-bottom-color: var(--border); }
+
+/* 站名用衬线斜体，与站内标题同一支笔 */
+.masthead-name { font-family: var(--font-display); font-style: italic; }
+.masthead-tag { color: var(--fg-faint); }
+
+.tool-btn { color: var(--fg-muted); }
+.tool-btn:hover { color: var(--fg); border-color: var(--border-strong); background: var(--bg-alt); }
+
+/* ---------- 题记 ---------- */
+
+.motto { font-family: var(--font-display); color: var(--fg-muted); }
+
+/* ---------- 数字条 ---------- */
+
+.figures { border-bottom-color: var(--border); }
+
+.figure { background: var(--surface); border-color: var(--border); }
+.figure-label { color: var(--fg-faint); }
+.figure-value { color: var(--fg); }
+.figure-unit { color: var(--fg-muted); }
+.figure-text { color: var(--fg-muted); }
+
+.figure-date { color: var(--fg-faint); }
+.figure-date-main { color: var(--fg); }
+.figure-date-lunar { color: var(--fg-muted); }
+
+/* ---------- 文章容器 ---------- */
+
+.entry-frame { background: var(--surface); border-color: var(--border); }
+
+.entry-frame::-webkit-scrollbar { width: 8px; }
+.entry-frame::-webkit-scrollbar-track { background: transparent; }
+.entry-frame::-webkit-scrollbar-thumb { background: var(--border); }
+.entry-frame:hover::-webkit-scrollbar-thumb { background: var(--border-strong); }
+
+.entry-placeholder { color: var(--fg-faint); }
+
+.pager { color: var(--fg-faint); }
+.pager-btn { color: var(--fg-muted); border-color: var(--border); }
+.pager-btn:hover:not(:disabled) { color: var(--fg); border-color: var(--border-strong); background: var(--bg-alt); }
+
+/* ---------- 服务 ---------- */
+
+.service-card { background: var(--surface); border-color: var(--border); }
+.service-card:hover { border-color: var(--border-strong); background: var(--bg-alt); }
+.service-card:hover .service-name {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+/* 快照区：没有图就是一块略深的纸，放名称首字 */
+.service-shot { background: var(--bg-alt); border-bottom-color: var(--border); }
+.service-shot-fallback { color: var(--fg-faint); }
+
+.service-name { font-family: var(--font-display); font-weight: 400; }
+.service-desc { color: var(--fg-muted); }
+
+.service-status { color: var(--badge-fg); border-color: var(--border); }
+.service-status[data-state="up"] { color: var(--fg-muted); }
+.service-status[data-state="warn"] { color: var(--accent); }
+.service-status[data-state="down"] { color: var(--fg-faint); }
+
+.service-placeholder { color: var(--fg-faint); }
+
+.service-more { color: var(--fg-muted); border-color: var(--border); }
+.service-more:hover { color: var(--accent); background: var(--bg-alt); }
+
+/* ---------- 页脚导航 ---------- */
+
+.footer-nav a { color: var(--fg-muted); letter-spacing: .02em; }
+.footer-nav a:hover { color: var(--fg); text-decoration-color: var(--border-strong); }
+
+/* ---------- 设置面板 ---------- */
+
+.sheet-overlay { background: var(--overlay-bg); }
+
+.sheet {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-dialog);
+}
+
+.sheet-head { border-bottom-color: var(--border); }
+.sheet-title { letter-spacing: var(--h2-tracking); }
+.sheet-close { color: var(--fg-faint); }
+.sheet-close:hover { color: var(--fg); background: var(--bg-alt); }
+
+.sheet-group-title { color: var(--fg-faint); }
+.sheet-note { color: var(--fg-faint); }
+
+.seg-btn { color: var(--fg-muted); }
+.seg-btn:hover { color: var(--fg); background: var(--bg-alt); }
+.seg-btn[aria-pressed="true"] { color: var(--accent); background: var(--bg-alt); }
+
+.check-label { color: var(--fg-muted); }
+.check-box { accent-color: var(--accent); }
+.check-empty { color: var(--fg-faint); }
+
+.sheet-reset { color: var(--fg-muted); border-color: var(--border); }
+.sheet-reset:hover { color: var(--accent); border-color: var(--border-strong); }
+
+/* ---------- 关于页的落款 ---------- */
+
+.prose li { color: var(--fg-muted); }
+
+.about-sign {
+  margin-top: 2.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.25rem;
+  letter-spacing: var(--display-tracking);
+  color: var(--fg-muted);
+}
+
+.about-date {
+  margin-top: .25rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--fg-faint);
+}
+

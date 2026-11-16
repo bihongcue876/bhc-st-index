@@ -1,0 +1,153 @@
+/* ============================================================
+   pages.css —— 分页面（文章 / 资源 / 关于 / 404）的结构
+   只放"这些页面才用到"的骨架；颜色、字号、间距仍走 theme.css 的变量。
+   ============================================================ */
+
+/* ---------------- 页面标题区 ---------------- */
+
+.page-head {
+  padding-block: var(--page-head-space, 3.25rem) 1.75rem;
+  border-bottom: 1px solid var(--border, #e5e5e5);
+}
+
+.page-kicker {
+  margin-bottom: .55rem;
+  font-size: var(--fs-xs, .75rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--fg-faint, #999);
+}
+
+.page-title {
+  font-size: var(--fs-page-title, clamp(1.7rem, 4vw, 2.3rem));
+  font-weight: var(--page-title-weight, 600);
+  letter-spacing: -.01em;
+  line-height: 1.25;
+}
+
+.page-desc {
+  max-width: 40em;
+  margin-top: .6rem;
+  color: var(--fg-muted, #666);
+  font-size: var(--fs-sm, .9375rem);
+}
+
+.page-section { padding-block: var(--section-space, 2.5rem); }
+.page-section + .page-section { padding-top: 0; }
+
+/* 文章按年份分组时的分隔行 */
+.entry-year {
+  padding: 1.75rem .3rem .45rem;
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-xs, .75rem);
+  letter-spacing: .12em;
+  color: var(--fg-faint, #999);
+}
+.entry-year:first-child { padding-top: .25rem; }
+
+/* ---------------- 资源列表 ---------------- */
+
+.res-group + .res-group { margin-top: 2.75rem; }
+
+.res-group-title {
+  margin-bottom: .35rem;
+  font-size: var(--fs-sm, .9375rem);
+  font-weight: 600;
+}
+
+.res-group-note {
+  margin-bottom: .9rem;
+  font-size: var(--fs-xs, .8125rem);
+  color: var(--fg-faint, #999);
+}
+
+.res-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--border, #e5e5e5);
+}
+
+.res-item { border-bottom: 1px solid var(--border, #e5e5e5); }
+
+.res-item > a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: baseline;
+  padding: .8rem .3rem;
+  color: inherit;
+}
+.res-item > a:hover { background: var(--bg-alt, #f4f2ee); text-decoration: none; }
+.res-item > a:hover .res-name {
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong, #ccc);
+  text-underline-offset: 3px;
+}
+
+.res-main { display: flex; flex-direction: column; gap: .1rem; min-width: 0; }
+.res-name { font-size: var(--fs-sm, .9375rem); font-weight: 600; }
+.res-desc { font-size: var(--fs-xs, .8125rem); color: var(--fg-muted, #666); }
+.res-host {
+  font-family: var(--font-mono, monospace);
+  font-size: var(--fs-xs, .75rem);
+  color: var(--fg-faint, #999);
+  white-space: nowrap;
+}
+
+/* ---------------- 关于页信息表 ---------------- */
+
+.info {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: .65rem 1.25rem;
+  margin: 0;
+  max-width: 52em;
+}
+
+.info dt {
+  font-size: var(--fs-sm, .9375rem);
+  color: var(--fg-faint, #999);
+}
+
+.info dd {
+  margin: 0;
+  font-size: var(--fs-sm, .9375rem);
+  color: var(--fg, #111);
+  overflow-wrap: anywhere;
+}
+
+/* ---------------- 空状态 ---------------- */
+
+.empty {
+  padding: 3rem .5rem;
+  text-align: center;
+  font-size: var(--fs-sm, .9375rem);
+  color: var(--fg-faint, #999);
+}
+
+/* ---------------- 窄屏 ---------------- */
+
+@media (max-width: 600px) {
+  .page-head { padding-block: 2.25rem 1.25rem; }
+  .res-item > a { grid-template-columns: 1fr; gap: .15rem; }
+  .res-host { display: none; }
+  .info { grid-template-columns: 1fr; gap: .15rem; }
+  .info dd { margin-bottom: 1rem; }
+}
+
+/* ---------------- 页内小节 ---------------- */
+
+/* 页内小标题沿用首页那条赭线，但要与正文拉开距离 */
+.page-section .section-title { margin-bottom: 1.1rem; }
+
+/* 正文里点到的文件名、路径：等宽，不加底纹 */
+.page-section code {
+  font-family: var(--font-mono, monospace);
+  font-size: .92em;
+  letter-spacing: 0;
+}
+
+/* 页内正文不设固定宽度：宽屏一行排完，窄屏按容器自然换行 */
+.page-section .prose { max-width: none; }
+
