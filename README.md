@@ -83,17 +83,12 @@ sudo certbot --nginx -d 你的域名
 ## 定时任务
 
 ```bash
-*/10 * * * * /opt/site/visits.sh    # 访问量，写 assets/data/visits.json
-30 4  * * * /opt/site/backup.sh    # 备份配置与访问量，留最近 14 份
+*/10 * * * * /opt/bhc/visits.sh    # 访问量，写 assets/data/visits.json
+30 4  * * * /opt/bhc/backup.sh     # 备份配置与访问量，留最近 14 份
 ```
 
-## 合规
+`visits.sh` 默认写 `/var/www/bhc-st-index/assets/data/visits.json`，
+日志按 `bhc-st.site.access.log` → `access.log` → `*.access.log` 顺序找。
+发布目录或日志名不同，就在 crontab 里加 `OUT=` 或 `LOG=`。
+改过脚本要重新 `install` 到 `/opt`，只改仓库不生效。
 
-- 备案号 **闽ICP备2026044016号-1**，指向 `https://beian.miit.gov.cn/`。
-- 备案名称「BHC技术演示站」与站名不同，页面单独列出。
-- 不提供人工智能服务；措辞不要改成「AI 助手」「智能对话」之类。
-- 新增子域名需单独备案。
-
-## 不做
-
-前端框架与构建、实时服务状态、评论注册上传。

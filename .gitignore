@@ -50,3 +50,6 @@ desktop.ini
 
 # 包管理器（本站无构建依赖，留作保险）
 node_modules/
+
+# 文档实文
+articles/
