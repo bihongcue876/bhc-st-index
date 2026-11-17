@@ -1,12 +1,10 @@
 # ------------------------------------------------------------
 # 站点数据：不进版本库
-# site.json 与 visits.json 由服务器维护，里面有真实地址、联系方式
-# 与访问量；仓库里只保留模板 site.example.json。
+# site.json 由服务器维护，里面有真实地址与联系方式；
+# 仓库里只保留模板 site.example.json。
 # ------------------------------------------------------------
 /assets/data/site.json
-/assets/data/visits.json
 /assets/data/*.local.json
-/assets/data/*.state
 /assets/data/backup/
 /site.local.json
 

@@ -388,9 +388,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
 .footer-line a:hover { color: var(--accent); }
 .footer-note { font-size: var(--fs-xs); color: var(--fg-faint); letter-spacing: .02em; }
 
-/* 访问量数字走等宽，跳变时宽度不抖 */
-[data-visits] { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
-
 /* ---------- 分页面 ---------- */
 
 .page-head { border-bottom: 1px solid var(--border); }

@@ -1,5 +1,5 @@
 /* ============================================================
-   site.js —— 全站常量 + 日期 + 配置读取 + 首页访问量
+   site.js —— 全站常量 + 日期 + 配置读取
    配置只在这里读一次，页面其它脚本共用 window.SITE_CONFIG，
    避免首页反复请求同一个文件。
    ============================================================ */
@@ -8,9 +8,6 @@ window.SITE = {
   name: 'BHC-Tech',
   // 开始服务日期（YYYY-MM-DD）。数字条的“建站已 N 日”和关于页的日期都读这里。
   since: '2026-11-16',
-  // 访问量数据文件。由服务器上的 tools/visits.sh 定时生成；
-  // 没有这个文件时数字条保持短横线，不会出现 0。
-  visitsUrl: '/assets/data/visits.json',
   // 页面内容的配置文件（服务器上维护，不进版本库）
   configUrl: '/assets/data/site.json'
 };
@@ -76,30 +73,4 @@ window.SITE = {
     });
   }
 
-  /* ---------- 首页访问量 ----------
-     只是一个静态 json，读不到就保持短横线 —— 不猜、不显示 0。
-     --------------------------------- */
-
-  var holders = document.querySelectorAll('[data-visits]');
-  if (!holders.length) return;
-
-  fetch(window.SITE.visitsUrl, { cache: 'no-store', credentials: 'same-origin' })
-    .then(function (res) {
-      if (!res.ok) throw new Error('no visits data');
-      return res.json();
-    })
-    .then(function (data) {
-      var n = Number(data && data.count);
-      if (!isFinite(n) || n < 0) return;
-      holders.forEach(function (el) {
-        el.textContent = n.toLocaleString('zh-CN');
-        el.removeAttribute('title');
-      });
-      document.querySelectorAll('[data-visits-wrap]').forEach(function (wrap) {
-        wrap.hidden = false;
-      });
-    })
-    .catch(function () {
-      /* 没有数据就保持“—”，不留空档 */
-    });
 })();

@@ -4,21 +4,18 @@
 #
 # 备份的是"改坏了就找不回来"的东西：
 #   site.json      站点内容（文章、服务、链接）
-#   visits.json    累计访问量
-#   visits.state   访问量脚本的累计状态（丢了会从 0 重算）
 #
 # 用法：
 #   sudo ./backup.sh
 #   SRC=/var/www/example.com/assets/data DEST=/var/backups/site KEEP=30 ./backup.sh
 #
 # 建议 cron 每天跑一次：
-#   30 4 * * * /opt/site/backup.sh >/dev/null 2>&1
+#   30 4 * * * /opt/bhc/backup.sh >/dev/null 2>&1
 # ============================================================
 
 set -eu
 
 SRC=${SRC:-/var/www/example.com/assets/data}
-STATE=${STATE:-/var/lib/bhc/visits.state}
 DEST=${DEST:-/var/backups/bhc}
 KEEP=${KEEP:-14}
 
@@ -39,17 +36,12 @@ trap 'rm -rf "$tmp"' EXIT INT TERM
 mkdir -p "$tmp/data"
 
 count=0
-for f in site.json visits.json; do
+for f in site.json; do
   if [ -f "$SRC/$f" ]; then
     cp "$SRC/$f" "$tmp/data/$f"
     count=$((count + 1))
   fi
 done
-
-if [ -f "$STATE" ]; then
-  cp "$STATE" "$tmp/data/visits.state"
-  count=$((count + 1))
-fi
 
 if [ "$count" -eq 0 ]; then
   echo "没有可备份的文件：$SRC" >&2
