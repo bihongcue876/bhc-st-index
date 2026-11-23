@@ -19,8 +19,8 @@
   --border-strong: #bdb5a4;   /* 悬停细线 */
   --link:          #1b1a17;
   --link-underline:#c3bbaa;
-  --accent:        #8a3c2c;   /* 赭：只用于细线、焦点、选中项 */
-  --focus:         #8a3c2c;
+  --accent:        #3f5e85;   /* 黛蓝：只用于细线、焦点、选中项 */
+  --focus:         #3f5e85;
   --brand-mark-bg: #1b1a17;
   --badge-bg:      transparent;
   --badge-fg:      #8b857a;
@@ -88,8 +88,8 @@
   --display-tracking: .01em;
   --sub-tracking:     .44em;
 
-  /* ---- 搜索命中：淡赭底，不抢眼 ---- */
-  --mark-bg:     rgb(138 60 44 / 14%);
+  /* ---- 搜索命中：淡黛蓝底，不抢眼 ---- */
+  --mark-bg:     rgb(63 94 133 / 12%);
   --mark-fg:     inherit;
 
   --header-bg:   var(--bg);
@@ -115,14 +115,14 @@
     --border-strong: #3d4856;
     --link:          #e2e6eb;
     --link-underline:#3d4856;
-    --accent:        #c9836b;
-    --focus:         #c9836b;
+    --accent:        #8fa9c9;
+    --focus:         #8fa9c9;
     --brand-mark-bg: #e2e6eb;
     --badge-fg:      #737d8a;
     --overlay-bg:    rgb(6 9 14 / 62%);
     --shadow-menu:   0 8px 20px -10px rgb(0 0 0 / 75%);
     --shadow-dialog: 0 18px 44px -20px rgb(0 0 0 / 85%);
-    --mark-bg:       rgb(201 131 107 / 24%);
+    --mark-bg:       rgb(143 169 201 / 20%);
   }
 }
 
@@ -139,14 +139,14 @@
   --border-strong: #3d4856;
   --link:          #e2e6eb;
   --link-underline:#3d4856;
-  --accent:        #c9836b;
-  --focus:         #c9836b;
+  --accent:        #8fa9c9;
+  --focus:         #8fa9c9;
   --brand-mark-bg: #e2e6eb;
   --badge-fg:      #737d8a;
   --overlay-bg:    rgb(6 9 14 / 62%);
   --shadow-menu:   0 8px 20px -10px rgb(0 0 0 / 75%);
   --shadow-dialog: 0 18px 44px -20px rgb(0 0 0 / 85%);
-  --mark-bg:       rgb(201 131 107 / 24%);
+  --mark-bg:       rgb(143 169 201 / 20%);
 }
 
 

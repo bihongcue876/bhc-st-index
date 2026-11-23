@@ -412,7 +412,7 @@ a:hover { text-decoration: underline; text-decoration-color: var(--link-underlin
 .search-result-title { font-size: var(--fs-sm, .9375rem); font-weight: 600; }
 .search-result-desc { font-size: var(--fs-xs, .8125rem); color: var(--fg-muted, #666); }
 .search-result mark {
-  background: var(--mark-bg, #f3e6a8);
+  background: var(--mark-bg, #dfe7f1);
   color: var(--mark-fg, inherit);
   border-radius: 2px;
   padding: 0 .08em;
@@ -944,7 +944,7 @@ a:hover { text-decoration: underline; text-decoration-color: var(--link-underlin
   vertical-align: middle;
   background: currentColor;
 }
-.service-status[data-state="warn"]::before { background: var(--accent, #8a3c2c); }
+.service-status[data-state="warn"]::before { background: var(--accent, #3f5e85); }
 .service-status[data-state="down"]::before { background: transparent; box-shadow: inset 0 0 0 1px currentColor; }
 
 .service-placeholder,
